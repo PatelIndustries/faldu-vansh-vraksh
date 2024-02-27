@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MemberService } from '../../services/member.service';
 
 @Component({
   selector: 'app-member',
@@ -10,10 +11,13 @@ export class MemberComponent {
 
   memberData:any;
 
-  constructor() {}
+  constructor(private memberService: MemberService) {}
 
-  ngOnInit(): void {
-    console.log(this.memberId);
-
-  }
+ngOnInit(): void {
+  console.log(this.memberId);
+  this.memberService.returnMemberById(this.memberId).subscribe((member) => {
+    console.log(member.name);
+    this.memberData = member;
+  });
+}
 }
