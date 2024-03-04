@@ -15,8 +15,7 @@ export class MemberComponent {
 
 ngOnInit(): void {
   console.log(this.memberId);
-  this.memberService.returnMemberById(this.memberId).subscribe((member) => {
-    console.log(member.name);
+  this.memberService.getMemberById(this.memberId).subscribe((member) => {
     this.memberData = member;
   });
 }
