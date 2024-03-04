@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,19 +11,28 @@ export class MemberService {
 
   constructor(private http: HttpClient) { }
 
-  returnMemberById(memberId: string): Observable<any> {
-    const memberData = [
-      { id: '1', name: 'John Doe', age: 30, email: 'john@example.com' },
-      { id: '2', name: 'Jane Smith', age: 25, email: 'jane@example.com' },
-      { id: '3', name: 'Bob Johnson', age: 40, email: 'bob@example.com' },
+  getMemberById(memberId: string): Observable<any> {
+    const memberData = this.returnMemberHC();
+    return of(memberData.find(member => member.id === memberId));
+  }
 
+  returnMemberById(memberId: string): Observable<any>{
+    return this.http.get('assets/memberData.json').pipe(
+      map((response: any) => {
+        return response.members.find((member: any) => member.id === memberId);
+      })
+    );
+  }
+
+  private returnMemberHC(){
+    const memberData = [
       {
-        id: "5e1b7e0c-4f35-4e7d-bd4b-0dc3c9e89267",
-        name: "John Doe",
-        gender: "male",
-        dateOfBirth: "1979-01-01",
-        dateOfDeath: null,
-        maritalStatus: "married"
+        "id": "5e1b7e0c-4f35-4e7d-bd4b-0dc3c9e89267",
+        "name": "John Doe",
+        "gender": "male",
+        "dateOfBirth": "1979-01-01",
+        "dateOfDeath": null,
+        "maritalStatus": "married"
       },
       {
         "id": "382ba20e-eb1d-42d4-9f69-9b63c055839f",
@@ -51,7 +61,7 @@ export class MemberService {
         "maritalStatus": "single"
       }
     ];
-    return of(memberData.find(member => member.id === memberId));
+    return memberData;
   }
 
 }
