@@ -1,6 +1,8 @@
-<div>{{memberId}}</div>
+<div *ngIf="memberData">
+<div>{{memberData.Id}}</div>
 <div>{{memberData.name}}</div>
 <div>{{memberData.gender}}</div>
 <div>{{memberData.dateOfBirth}}</div>
 <div>{{memberData.dateOfDeath}}</div>
 <div>{{memberData.maritalStatus}}</div>
+</div>

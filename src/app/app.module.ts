@@ -4,6 +4,8 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MemberComponent } from './components/member/member.component';
+import { provideHttpClient } from '@angular/common/http';
+import { MemberService } from './services/member.service';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { MemberComponent } from './components/member/member.component';
     AppRoutingModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(),
+    MemberService
   ],
   bootstrap: [AppComponent]
 })
